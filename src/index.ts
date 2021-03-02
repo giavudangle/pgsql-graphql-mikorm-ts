@@ -1,15 +1,21 @@
 import {MikroORM} from "@mikro-orm/core"
-import { ___prod___ } from "./constants"
+import { ___DB_NAME___, ___DB_PASSWORD___, ___DB_TYPE___, ___DB_USER___, ___PROD___ } from "./constants"
+
+import { Post } from "./entities/Post";
+import mikroOrmConfig from "./mikro-orm.config";
 
 const root = async () => {
-  const orm = await MikroORM.init({
-    dbName:process.env.DB_NAME,
-    user:process.env.DB_USER,
-    password:process.env.DB_PASSWORD,
-    debug:!___prod___,
-    entities:[]
-  })
+  const orm = await MikroORM.init(mikroOrmConfig)
+
+  await orm.getMigrator().up();
+
+  const post = await orm.em.find(Post,{});
+  console.log(post);
+  
 }
+
+root()
+.catch(e => console.log(e))
 
 
 
