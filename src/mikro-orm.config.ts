@@ -3,6 +3,7 @@ import { ___DB_NAME___, ___DB_USER___, ___DB_PASSWORD___, ___PROD___, ___DB_TYPE
 import { Post } from "./entities/Post";
 
 import path from 'path'
+import { User } from "./entities/User";
 
 export default {
     dbName:___DB_NAME___,
@@ -10,7 +11,7 @@ export default {
     password:___DB_PASSWORD___,
     debug:___PROD___,
     type:___DB_TYPE___ ,
-    entities:[Post],
+    entities:[Post,User],
     migrations: {
       tableName: 'mikro_orm_migrations', // name of database table with log of executed transactions
       path: path.join(__dirname,"./migrations"), // path to the folder with migrations
